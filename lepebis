@@ -1,0 +1,120 @@
+#include<stdio.h>
+
+void convertIntToBase(int decimal, int base);
+void baseName(int base);
+void printValues(int base, int arrLength, int* arr);
+int enterValues(int oddOrEven);
+
+int main() {
+
+
+    int baseForOdd = enterValues(1);
+    int baseForEven = enterValues(0);
+
+    int evenCount = 0;
+    int oddCount = 0;
+
+    int integers[20];
+    int oddIntegers[20];
+    int evenIntegers[20];
+
+    printf("Enter up to 20 integer values -> ");
+
+    for (int i = 0; i < 20; i++) {
+        scanf("%d", &integers[i]);
+        if (integers[i] == -1) break;
+
+        else if (integers[i] % 2 == 1) {
+            oddIntegers[oddCount] = integers[i];
+            oddCount++;
+        }
+
+        else if (integers[i] % 2 == 0) {
+            evenIntegers[evenCount] = integers[i];
+            evenCount++;
+        }
+    }
+
+    printValues(baseForOdd, oddCount, oddIntegers);
+
+    printValues(baseForEven, evenCount, evenIntegers);
+
+    return 0;
+
+}
+
+int enterValues(int oddOrEven) {
+    int base;
+    while (1) {
+        if (oddOrEven % 2 == 1) printf("Enter base for odd numbers -> "); else printf("Enter base for even numbers -> ");
+        scanf("%d", &base);
+        if (base > 1 && base < 10) break;
+        printf("\n");
+        printf("Error: Base must be in the range from 2 to 9.");
+        printf("\n \n");
+    }
+
+    return base;
+}
+
+void printValues(int base, int arrLength, int* arr) {
+
+    printf("\n");
+    baseName(base);
+    printf(" values: ");
+    if (arrLength == 0) printf("None");
+    else {
+        for (int i = 0; i < arrLength; i++) {
+            convertIntToBase(arr[i], base);
+            printf(" ");
+        }
+    }
+}
+
+
+void convertIntToBase(int decimal, int base) {
+
+    if (decimal == 0) return;
+
+    int x = decimal % base;
+
+    int y = decimal / base;
+
+    convertIntToBase(y, base);
+
+    printf("%d", x);
+
+}
+
+
+void baseName(int base) {
+
+    switch (base) {
+    case 2:
+        printf("Binary");
+        break;
+    case 3:
+        printf("Ternary");
+        break;
+    case 4:
+        printf("Quaternary");
+        break;
+    case 5:
+        printf("Quinary");
+        break;
+    case 6:
+        printf("Senary");
+        break;
+    case 7:
+        printf("Septenary");
+        break;
+    case 8:
+        printf("Octal");
+        break;
+    case 9:
+        printf("Nonary");
+        break;
+
+    }
+
+}
